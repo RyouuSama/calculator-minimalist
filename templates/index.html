@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Minimalista</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos de fondo */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://wallpapercave.com/wp/wp6630190.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Estilos del contenedor de la calculadora */
+        .calc-container {
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos de la pantalla de la calculadora */
+        #display {
+            height: 60px;
+            background-color: rgba(240, 240, 240, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos de los botones */
+        button.btn {
+            color: #4a4a4a;
+            font-size: 1.2rem;
+            padding: 8px 12px;
+            background-color: rgba(240, 240, 240, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        button.btn-primary {
+            background-color: #4a4a4a;
+            border-color: #4a4a4a;
+            color: #ffffff;
+        }
+
+        button.btn:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #4a4a4a;
+        }
+
+        button.btn-primary:hover {
+            opacity: 0.8;
+        }
+
+        button.btn-clear {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #ffffff;
+        }
+
+        button.btn-delete {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #ffffff;
+        }
+
+        button.btn-clear:hover,
+        button.btn-delete:hover {
+            opacity: 0.8;
+        }
+
+        /* Estilos de la cuadrícula de botones */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calc-container">
+        <input type="text" id="display" class="form-control" readonly>
+        <div class="button-grid mt-3">
+            <!-- Números y operadores -->
+            <button class="btn" onclick="appendNumber(7)">7</button>
+            <button class="btn" onclick="appendNumber(8)">8</button>
+            <button class="btn" onclick="appendNumber(9)">9</button>
+            <button class="btn btn-primary" onclick="appendOperator('+')">+</button>
+            <button class="btn" onclick="appendNumber(4)">4</button>
+            <button class="btn" onclick="appendNumber(5)">5</button>
+            <button class="btn" onclick="appendNumber(6)">6</button>
+            <button class="btn btn-primary" onclick="appendOperator('-')">-</button>
+            <button class="btn" onclick="appendNumber(1)">1</button>
+            <button class="btn" onclick="appendNumber(2)">2</button>
+            <button class="btn" onclick="appendNumber(3)">3</button>
+            <button class="btn btn-primary" onclick="appendOperator('*')">*</button>
+            <button class="btn" onclick="appendNumber(0)">0</button>
+            <button class="btn" onclick="appendOperator('.')">.</button>
+            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn btn-primary" onclick="appendOperator('/')">/</button>
+
+            <!-- Botones de limpieza -->
+            <button class="btn btn-clear" onclick="clearDisplay()">C</button>
+            <button class="btn btn-delete" onclick="deleteLastEntry()">DEL</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const display = document.getElementById('display');
+
+        function appendNumber(number) {
+            display.value += number;
+        }
+
+        function appendOperator(operator) {
+            if (display.value.length > 0 && !isNaN(display.value.slice(-1))) {
+                display.value += operator;
+            }
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteLastEntry() {
+            display.value = display.value.slice(0, -1);
+        }
+    </script>
+</body>
+</html>
